@@ -7,7 +7,7 @@ object DownloadNcbiAssemblyTest extends BiopetTest {
   @Test
   def testNoArgs(): Unit = {
     intercept[IllegalArgumentException] {
-      ToolTemplate.main(Array())
+      DownloadNcbiAssembly.main(Array())
     }
   }
 }
