@@ -2,4 +2,9 @@ package nl.biopet.tools.downloadncbiassembly
 
 import java.io.File
 
-case class Args(inputFile: File = null)
+case class Args(assemblyReport: File = null,
+                outputFile: File = null,
+                reportFile: Option[File] = None,
+                contigNameHeader: Option[String] = None,
+                mustHaveOne: List[(String, String)] = List(),
+                mustNotHave: List[(String, String)] = List())
