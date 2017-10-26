@@ -5,9 +5,9 @@ scalaVersion := "2.11.11"
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-libraryDependencies += "com.github.biopet" %% "tool-utils" % "0.1-SNAPSHOT" changing()
+libraryDependencies += "com.github.biopet" %% "tool-utils" % "0.1"
 
-libraryDependencies += "com.github.biopet" %% "test-utils" % "0.1-SNAPSHOT" % Test changing()
+libraryDependencies += "com.github.biopet" %% "test-utils" % "0.1" % Test
 
 mainClass in assembly := Some("nl.biopet.tools.downloadncbiassembly.DownloadNcbiAssembly")
 
