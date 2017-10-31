@@ -3,12 +3,12 @@ package nl.biopet.tools.downloadncbiassembly
 
 import java.io.File
 
-import nl.biopet.test.BiopetTest
+import nl.biopet.utils.test.tools.ToolTest
 import org.testng.annotations.Test
 
 import scala.io.Source
 
-class DownloadNcbiAssemblyTest extends BiopetTest {
+class DownloadNcbiAssemblyTest extends ToolTest[Args] {
   @Test
   def testNoArgs(): Unit = {
     intercept[IllegalArgumentException] {
