@@ -7,6 +7,8 @@ import nl.biopet.utils.tool.ToolCommand
 import scala.io.Source
 
 object DownloadNcbiAssembly extends ToolCommand[Args] {
+  def emptyArgs: Args = Args()
+  def argsParser = new ArgsParser(toolName)
   def main(args: Array[String]): Unit = {
     val parser = new ArgsParser(toolName)
     val cmdArgs =

@@ -9,6 +9,7 @@ import org.testng.annotations.Test
 import scala.io.Source
 
 class DownloadNcbiAssemblyTest extends ToolTest[Args] {
+  def toolCommand: DownloadNcbiAssembly.type = DownloadNcbiAssembly
   @Test
   def testNoArgs(): Unit = {
     intercept[IllegalArgumentException] {
