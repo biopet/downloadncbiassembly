@@ -47,17 +47,20 @@ object DownloadNcbiAssembly extends ToolCommand[Args] {
     val allContigs = assamblyReport
       .filter(!_.startsWith("#"))
       .map(_.split("\t"))
-    val totalLength = lengthId.map(id => allContigs.map(_.apply(id).toLong).sum)
+    val totalLength =
+      lengthId.map(id => allContigs.map(_.apply(id).toLong).sum)
 
     logger.info(s"${allContigs.size} contigs found")
     totalLength.foreach(l => logger.info(s"Total length: $l"))
 
     val filterContigs = allContigs
-      .filter(values => cmdArgs.mustNotHave.forall(x => values(headers(x._1)) != x._2))
+      .filter(values =>
+        cmdArgs.mustNotHave.forall(x => values(headers(x._1)) != x._2))
       .filter(values =>
         cmdArgs.mustHaveOne
           .exists(x => values(headers(x._1)) == x._2) || cmdArgs.mustHaveOne.isEmpty)
-    val filterLength = lengthId.map(id => filterContigs.map(_.apply(id).toLong).sum)
+    val filterLength =
+      lengthId.map(id => filterContigs.map(_.apply(id).toLong).sum)
 
     logger.info(s"${filterContigs.size} contigs left after filtering")
     filterLength.foreach(l => logger.info(s"Filtered length: $l"))
@@ -66,10 +69,12 @@ object DownloadNcbiAssembly extends ToolCommand[Args] {
       val id = if (values(6) == "na") values(4) else values(6)
       logger.info(s"Start download $id")
       val fastaReader =
-        Source.fromURL(s"$baseUrlEutils/efetch.fcgi?db=nuccore&id=$id&retmode=text&rettype=fasta")
+        Source.fromURL(
+          s"$baseUrlEutils/efetch.fcgi?db=nuccore&id=$id&retmode=text&rettype=fasta")
       fastaReader
         .getLines()
-        .map(x => nameId.map(y => x.replace(">", s">${values(y)} ")).getOrElse(x))
+        .map(x =>
+          nameId.map(y => x.replace(">", s">${values(y)} ")).getOrElse(x))
         .foreach(fastaWriter.println)
       fastaReader.close()
     }

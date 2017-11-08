@@ -9,14 +9,16 @@ class ArgsParser(cmdName: String) extends AbstractOptParser[Args](cmdName) {
     (x, c) =>
       c.copy(assemblyReport = x)
   } text "refseq ID from NCBI"
-  opt[File]('o', "output") required () unbounded () valueName "<file>" action { (x, c) =>
-    c.copy(outputFile = x)
+  opt[File]('o', "output") required () unbounded () valueName "<file>" action {
+    (x, c) =>
+      c.copy(outputFile = x)
   } text "output Fasta file"
   opt[File]("report") unbounded () valueName "<file>" action { (x, c) =>
     c.copy(reportFile = Some(x))
   } text "where to write report from ncbi"
-  opt[String]("nameHeader") unbounded () valueName "<string>" action { (x, c) =>
-    c.copy(contigNameHeader = Some(x))
+  opt[String]("nameHeader") unbounded () valueName "<string>" action {
+    (x, c) =>
+      c.copy(contigNameHeader = Some(x))
   } text
     """
       | What column to use from the NCBI report for the name of the contigs.
