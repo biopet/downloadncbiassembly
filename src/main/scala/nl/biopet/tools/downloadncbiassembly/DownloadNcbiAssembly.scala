@@ -83,4 +83,30 @@ object DownloadNcbiAssembly extends ToolCommand[Args] {
 
     fastaWriter.close()
   }
+
+  def descriptionText: String =
+    """
+      |This tool downloads an assembly FASTA file from NCBI given an assembly report file. Columns
+      |can be filtered for regexes to exist or not exist. Contig name style can be selected.
+    """.stripMargin
+
+  def manualText: String =
+    s"""
+       |$toolName requires an assembly report to download an assembly sequence. It will output
+       |the assembly in FASTA format. For filtering, check the usage for more details.
+     """.stripMargin
+
+  def exampleText: String =
+    s"""
+       |For downloading an assembly using the information from an assembly report:
+       |${example("-a", "assemblyReport", "-o", "outputFile")}
+       |
+       |For downloading an assembly and naming the contigs UCSC style:
+       |${example("-a",
+                  "assemblyReport",
+                  "-o",
+                  "outputFile",
+                  "--nameHeader",
+                  "UCSC-style-name")}
+     """.stripMargin
 }

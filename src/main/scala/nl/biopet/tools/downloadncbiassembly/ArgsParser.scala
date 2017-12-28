@@ -6,23 +6,20 @@ import nl.biopet.utils.tool.{AbstractOptParser, ToolCommand}
 
 class ArgsParser(toolCommand: ToolCommand[Args])
     extends AbstractOptParser[Args](toolCommand) {
-  opt[File]('a', "assembly_report") required () unbounded () valueName "<file>" action {
+  opt[File]('a', "assembly_report") required () valueName "<file>" action {
     (x, c) =>
       c.copy(assemblyReport = x)
   } text "refseq ID from NCBI"
-  opt[File]('o', "output") required () unbounded () valueName "<file>" action {
-    (x, c) =>
-      c.copy(outputFile = x)
+  opt[File]('o', "output") required () valueName "<file>" action { (x, c) =>
+    c.copy(outputFile = x)
   } text "output Fasta file"
-  opt[File]("report") unbounded () valueName "<file>" action { (x, c) =>
+  opt[File]("report") valueName "<file>" action { (x, c) =>
     c.copy(reportFile = Some(x))
   } text "where to write report from ncbi"
-  opt[String]("nameHeader") unbounded () valueName "<string>" action {
-    (x, c) =>
-      c.copy(contigNameHeader = Some(x))
+  opt[String]("nameHeader") valueName "<string>" action { (x, c) =>
+    c.copy(contigNameHeader = Some(x))
   } text
-    """
-      | What column to use from the NCBI report for the name of the contigs.
+    """What column to use from the NCBI report for the name of the contigs.
       | All columns in the report can be used but this are the most common field to choose from:
       | - 'Sequence-Name': Name of the contig within the assembly
       | - 'UCSC-style-name': Name of the contig used by UCSC ( like hg19 )
