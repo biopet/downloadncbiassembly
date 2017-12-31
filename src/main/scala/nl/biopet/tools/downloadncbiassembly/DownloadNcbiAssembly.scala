@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2014 Sequencing Analysis Support Core - Leiden University Medical Center
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package nl.biopet.tools.downloadncbiassembly
 
 import java.io.PrintWriter
@@ -8,7 +29,7 @@ import scala.io.Source
 
 object DownloadNcbiAssembly extends ToolCommand[Args] {
   def emptyArgs: Args = Args()
-  def argsParser = new ArgsParser(toolName)
+  def argsParser = new ArgsParser(this)
   def main(args: Array[String]): Unit = {
     val cmdArgs = cmdArrayToArgs(args)
 
@@ -83,4 +104,30 @@ object DownloadNcbiAssembly extends ToolCommand[Args] {
 
     fastaWriter.close()
   }
+
+  def descriptionText: String =
+    """
+      |This tool downloads an assembly FASTA file from NCBI given an assembly report file. Columns
+      |can be filtered for regexes to exist or not exist. Contig name style can be selected.
+    """.stripMargin
+
+  def manualText: String =
+    s"""
+       |$toolName requires an assembly report to download an assembly sequence. It will output
+       |the assembly in FASTA format. For filtering, check the usage for more details.
+     """.stripMargin
+
+  def exampleText: String =
+    s"""
+       |For downloading an assembly using the information from an assembly report:
+       |${example("-a", "assemblyReport", "-o", "outputFile")}
+       |
+       |For downloading an assembly and naming the contigs UCSC style:
+       |${example("-a",
+                  "assemblyReport",
+                  "-o",
+                  "outputFile",
+                  "--nameHeader",
+                  "UCSC-style-name")}
+     """.stripMargin
 }
